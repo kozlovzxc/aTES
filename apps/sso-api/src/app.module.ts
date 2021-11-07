@@ -1,3 +1,6 @@
+// Dotenv should be imported ASAP
+import * as dotenv from 'dotenv';
+dotenv.config();
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -12,9 +15,9 @@ import { E2EModule } from './e2e/e2e.module';
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'postgres',
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
       entities: [__dirname + '/**/*.entity.{js,ts}'],
       migrations: [__dirname + '/**/*.migrations.{js,ts}'],
       synchronize: true,

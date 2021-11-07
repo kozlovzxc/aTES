@@ -23,3 +23,13 @@ export class AccountEntity {
   @Column()
   role: AccountRole;
 }
+
+export type PublicAccountEntity = Omit<AccountEntity, 'password'>;
+
+export const getPublicAccountEntity = (
+  account: AccountEntity,
+): PublicAccountEntity => {
+  const publicAccount = { ...account };
+  delete publicAccount.password;
+  return publicAccount;
+};
