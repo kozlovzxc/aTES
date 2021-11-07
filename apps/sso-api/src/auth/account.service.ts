@@ -8,12 +8,14 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { nanoid } from 'nanoid';
+import { PublisherService } from '../common/publisher.service';
 
 @Injectable()
 export class AccountService {
   constructor(
     @InjectRepository(AccountEntity)
     private accountRepository: Repository<AccountEntity>,
+    private publisherService: PublisherService,
   ) {}
 
   async getOne(
@@ -42,6 +44,11 @@ export class AccountService {
       username,
       password,
       role,
+    });
+    this.publisherService.publish('accounts-stream', 'AccountCreated', {
+      id: newAccount.id,
+      publicId: newAccount.publicId,
+      role: newAccount.role,
     });
     return getPublicAccountEntity(newAccount);
   }

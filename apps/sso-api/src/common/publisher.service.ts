@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class PublisherService {
-  publish(event) {
-    console.log(event);
+  publish(topic: string, name: string, data: any) {
+    console.log(topic, name, data);
   }
 }
