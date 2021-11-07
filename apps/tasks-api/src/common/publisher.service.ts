@@ -26,15 +26,6 @@ export class PublisherService {
       durable: false,
     });
 
-    this.channel.publish(
-      topic,
-      '',
-      Buffer.from(
-        JSON.stringify({
-          event: name,
-          data,
-        }),
-      ),
-    );
+    this.channel.publish(topic, '', Buffer.from(data));
   }
 }

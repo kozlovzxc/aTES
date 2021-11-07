@@ -1,0 +1,16 @@
+version: '3.5'
+services:
+  broker:
+    image: "rabbitmq:3.9-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      messages-net:
+        aliases:
+          - broker
+
+networks:
+  messages-net:
+    external: true
+    name: messages-net

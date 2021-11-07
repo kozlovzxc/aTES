@@ -5,9 +5,9 @@ services:
     env_file:
       - .env
     volumes:
-      - sso-data:/var/lib/postgresql/data/
+      - tasks-data:/var/lib/postgresql/data/
     networks:
-      - default
+      default:
 
   app:
     build:
@@ -16,7 +16,7 @@ services:
     volumes:
       - ./:/usr/src/app
     ports:
-      - "3000:3000"
+      - "3001:3001"
     links:
       - database
     networks:
@@ -24,7 +24,7 @@ services:
       - messages-net
 
 volumes:
-  sso-data:
+  tasks-data:
 
 networks:
   default:
