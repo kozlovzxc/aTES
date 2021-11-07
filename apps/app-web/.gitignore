@@ -1,0 +1,6 @@
+# Build
+.parcel-cache
+dist
+
+# NPM
+node_modules
