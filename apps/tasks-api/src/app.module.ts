@@ -5,7 +5,6 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CommonModule } from './common/common.module';
 import { E2EModule } from './e2e/e2e.module';
 import { AccountModule } from './account/account.module';
 
@@ -23,7 +22,6 @@ import { AccountModule } from './account/account.module';
       synchronize: true,
       keepConnectionAlive: true,
     }),
-    CommonModule,
     E2EModule,
     AccountModule,
   ],

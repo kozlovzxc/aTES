@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { connect, Connection, Channel } from 'amqplib/callback_api';
 
+// TODO: check if we can rewrite it using https://docs.nestjs.com/microservices/rabbitmq
+// TODO: replace callback api with promise API
 @Injectable()
 export class PublisherService {
   connection: Connection;

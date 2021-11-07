@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Channel, connect, Connection } from 'amqplib/callback_api';
 
+// TODO: replace callback api with promise API
 @Injectable()
 export class AccountService {
   EXCHANGE = 'accounts-stream';
