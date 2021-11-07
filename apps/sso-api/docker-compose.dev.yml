@@ -6,8 +6,18 @@ services:
       - .env
     volumes:
       - database-data:/var/lib/postgresql/data/
+
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: dev.dockerfile
+    volumes:
+      - ./:/usr/src/app
     ports:
-      - "5432:5432"
+      - "3000:3000"
+    links:
+      - database
 
 volumes:
   database-data:
