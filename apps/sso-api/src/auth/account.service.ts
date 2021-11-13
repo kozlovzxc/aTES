@@ -46,7 +46,6 @@ export class AccountService {
       role,
     });
     this.publisherService.publish('accounts-stream', 'AccountCreated', {
-      id: newAccount.id,
       publicId: newAccount.publicId,
       role: newAccount.role,
     });

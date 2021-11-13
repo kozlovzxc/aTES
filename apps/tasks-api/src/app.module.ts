@@ -6,7 +6,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { E2EModule } from './e2e/e2e.module';
-import { AccountModule } from './account/account.module';
+import { AuthModule } from './auth/auth.module';
+import { TasksModule } from './tasks/tasks.module';
+import { RedisModule } from './common/services/redis.module';
 
 @Module({
   imports: [
@@ -22,8 +24,10 @@ import { AccountModule } from './account/account.module';
       synchronize: true,
       keepConnectionAlive: true,
     }),
+    RedisModule,
     E2EModule,
-    AccountModule,
+    AuthModule,
+    TasksModule,
   ],
   controllers: [AppController],
   providers: [AppService],

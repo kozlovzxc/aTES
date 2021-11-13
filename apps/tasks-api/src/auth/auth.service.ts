@@ -1,17 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { Channel, connect, Connection } from 'amqplib/callback_api';
+import { RedisService } from '../common/services/redis.service';
 
 // TODO: replace callback api with promise API
 @Injectable()
-export class AccountService {
-  EXCHANGE = 'accounts-stream';
+export class AuthService {
+  EXCHANGE = 'auth-stream';
   connection: Connection;
   channel: Channel;
 
-  constructor() {
+  constructor(private redisService: RedisService) {
     connect('amqp://broker', (connectionError, connection) => {
       if (connectionError != null) {
-        throw new Error("Can't connect to message broker");
+        throw new Error("Can't connect to broker");
       }
       this.connection = connection;
 
@@ -25,8 +26,6 @@ export class AccountService {
           durable: false,
         });
 
-        console.log('created channel');
-
         this.channel.assertQueue(
           '',
           {
@@ -37,15 +36,17 @@ export class AccountService {
               throw new Error("Can't create broker queue");
             }
 
-            console.log('asserted queue');
-
             channel.bindQueue(q.queue, this.EXCHANGE, '');
 
             channel.consume(
               q.queue,
-              function (msg) {
+              (msg) => {
                 if (msg.content) {
-                  console.log(' [x] %s', msg.content.toString());
+                  const event = JSON.parse(msg.content.toString());
+                  this.redisService.client.SET(
+                    event.data.accessToken,
+                    event.data.publicId,
+                  );
                 }
               },
               {

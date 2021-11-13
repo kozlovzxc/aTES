@@ -9,6 +9,7 @@ import {
 import { JWTService } from './jwt.service';
 import { IsString, MinLength } from 'class-validator';
 import { AccountService } from './account.service';
+import { PublisherService } from '../common/publisher.service';
 
 class SignUpDTO {
   @IsString()
@@ -32,6 +33,7 @@ export class AuthController {
   constructor(
     private jwtService: JWTService,
     private accountService: AccountService,
+    private publisherService: PublisherService,
   ) {}
 
   @Post('refresh-token')
@@ -50,6 +52,10 @@ export class AuthController {
       throw new HttpException("User wasn't not found", HttpStatus.NOT_FOUND);
     }
     const accessToken = this.jwtService.generateAccessToken(user);
+    this.publisherService.publish('auth-stream', 'AccountAuthenticated', {
+      publicId: user.publicId,
+      accessToken,
+    });
     return { accessToken };
   }
 
@@ -57,6 +63,10 @@ export class AuthController {
   async signUp(@Body() body: SignUpDTO) {
     const newUser = await this.accountService.create(body);
     const accessToken = this.jwtService.generateAccessToken(newUser);
+    this.publisherService.publish('auth-stream', 'AccountAuthenticated', {
+      publicId: newUser.publicId,
+      accessToken,
+    });
     return { accessToken };
   }
 

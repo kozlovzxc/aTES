@@ -33,7 +33,7 @@ export class PublisherService {
       '',
       Buffer.from(
         JSON.stringify({
-          event: name,
+          name,
           data,
         }),
       ),

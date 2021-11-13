@@ -23,6 +23,11 @@ services:
       - default
       - messages-net
 
+  cache:
+    image: "redis"
+    networks:
+      default:
+
 volumes:
   tasks-data:
 

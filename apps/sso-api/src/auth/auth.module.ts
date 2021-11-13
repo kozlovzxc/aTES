@@ -5,11 +5,11 @@ import { JWTService } from './jwt.service';
 import { AccountController } from './account.controller';
 import { AccountService } from './account.service';
 import { AccountEntity } from './account.entity';
-import { PublisherService } from '../common/publisher.service';
+import { PublisherModule } from '../common/publisher.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AccountEntity])],
+  imports: [TypeOrmModule.forFeature([AccountEntity]), PublisherModule],
   controllers: [AuthController, AccountController],
-  providers: [JWTService, AccountService, PublisherService],
+  providers: [JWTService, AccountService],
 })
 export class AuthModule {}
