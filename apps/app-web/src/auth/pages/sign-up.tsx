@@ -2,6 +2,7 @@ import { memo, useEffect } from "react";
 import * as classes from "./sign-in.module.css";
 import { useForm } from "react-hook-form";
 import { signUpFx } from "../stores/auth.store";
+import { Link } from "react-router-dom";
 
 export const SignUp = memo(() => {
   const {
@@ -27,7 +28,7 @@ export const SignUp = memo(() => {
   return (
     <div className={classes.container}>
       <div>
-        <h1 className={classes.title}>Sign Up</h1>
+        <h1 className={classes.title}>Sign up</h1>
         {/* TODO: handle submit errors */}
         <form className={classes.form} onSubmit={handleSubmit}>
           <label className={classes.form__label}>
@@ -51,9 +52,12 @@ export const SignUp = memo(() => {
           </label>
 
           <button type="submit" className="btn btn-primary">
-            Submit
+            Sign up
           </button>
         </form>
+        <div>
+          Already have an account? <Link to="/auth/sign-in">Sign in.</Link>
+        </div>
       </div>
     </div>
   );
