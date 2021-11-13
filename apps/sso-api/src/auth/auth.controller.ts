@@ -35,7 +35,9 @@ export class AuthController {
   ) {}
 
   @Post('refresh-token')
-  refreshToken() {}
+  refreshToken() {
+    // TODO: update refresh token
+  }
 
   @Post('sign-in')
   @HttpCode(200)
@@ -58,7 +60,8 @@ export class AuthController {
     return { accessToken };
   }
 
-  // TODO: invalidate refresh token
   @Post('log-out')
-  logOut() {}
+  logOut() {
+    // TODO: invalidate refresh token
+  }
 }

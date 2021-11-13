@@ -1,0 +1,11 @@
+.title {
+  margin-bottom: 24px;
+}
+
+.form {
+}
+
+.form__label {
+  display: block;
+  margin-bottom: 16px;
+}
