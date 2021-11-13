@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.title {
+  margin-bottom: 24px;
+}
+
+.form {
+  margin-bottom: 16px;
+}
+
+.form__label {
+  display: block;
+  margin-bottom: 16px;
+}

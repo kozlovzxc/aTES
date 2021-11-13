@@ -1,22 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create(AppModule);
 
   app.use((_req, res, next) => {
     res.removeHeader('x-powered-by');
     next();
   });
 
-  app.enableCors({
-    origin: ['http://localhost:1234'],
-  });
-
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();

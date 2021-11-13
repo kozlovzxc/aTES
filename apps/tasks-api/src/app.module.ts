@@ -5,9 +5,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CommonModule } from './common/common.module';
-import { AuthModule } from './auth/auth.module';
 import { E2EModule } from './e2e/e2e.module';
+import { AuthModule } from './auth/auth.module';
+import { TasksModule } from './tasks/tasks.module';
+import { RedisModule } from './common/services/redis.module';
 
 @Module({
   imports: [
@@ -23,9 +24,10 @@ import { E2EModule } from './e2e/e2e.module';
       synchronize: true,
       keepConnectionAlive: true,
     }),
-    CommonModule,
+    RedisModule,
     E2EModule,
     AuthModule,
+    TasksModule,
   ],
   controllers: [AppController],
   providers: [AppService],

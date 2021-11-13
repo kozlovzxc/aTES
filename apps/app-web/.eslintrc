@@ -1,0 +1,12 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "effector"],
+  "extends": [
+    "eslint:recommended" ,
+    "plugin:@typescript-eslint/recommended",
+    "plugin:effector/recommended"
+  ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": 0
+  }
+}
