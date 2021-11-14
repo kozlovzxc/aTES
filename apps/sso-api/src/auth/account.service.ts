@@ -9,6 +9,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { nanoid } from 'nanoid';
 import { PublisherService } from '../common/publisher.service';
+import accountCreatedSchema from '../../../schema-registry/schemas/account/created/1.json';
+import Ajv from 'ajv';
+
+const ajv = new Ajv();
+// console.log(accountCreatedSchema);
+const accountCreatedValidator = ajv.compile(accountCreatedSchema);
 
 @Injectable()
 export class AccountService {
@@ -45,10 +51,21 @@ export class AccountService {
       password,
       role,
     });
-    this.publisherService.publish('accounts-stream', 'AccountCreated', {
-      publicId: newAccount.publicId,
-      role: newAccount.role,
-    });
+    const event = {
+      event_name: 'AccountCreated',
+      event_version: 1,
+      data: {
+        public_id: newAccount.publicId,
+        username: newAccount.username,
+        role: newAccount.role,
+      },
+    };
+    const valid = accountCreatedValidator(event);
+    if (!valid) {
+      // TODO: consider better error handling
+      throw new Error('AccountCreated event is invalid');
+    }
+    this.publisherService.publish('accounts-stream', event);
     return getPublicAccountEntity(newAccount);
   }
 }

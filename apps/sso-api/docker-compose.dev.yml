@@ -5,4 +5,5 @@ services:
       context: .
       dockerfile: dev.dockerfile
     volumes:
-      - ./:/usr/src/app
+      - .:/usr/src/aTES/apps/sso-api
+      - ../schema-registry:/usr/src/aTES/apps/schema-registry

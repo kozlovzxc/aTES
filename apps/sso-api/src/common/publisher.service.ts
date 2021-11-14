@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { connect, Connection, Channel } from 'amqplib/callback_api';
+import { nanoid } from 'nanoid';
 
 // TODO: check if we can rewrite it using https://docs.nestjs.com/microservices/rabbitmq
 // TODO: replace callback api with promise API
@@ -23,18 +24,21 @@ export class PublisherService {
     });
   }
 
-  publish(topic: string, name: string, data: any) {
+  // TODO: add event type definition
+  publish(topic: string, event: any) {
     this.channel.assertExchange(topic, 'fanout', {
       durable: false,
     });
+
+    const eventId = nanoid();
 
     this.channel.publish(
       topic,
       '',
       Buffer.from(
         JSON.stringify({
-          name,
-          data,
+          event_id: eventId,
+          ...event,
         }),
       ),
     );

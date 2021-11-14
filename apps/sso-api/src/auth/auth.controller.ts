@@ -52,10 +52,15 @@ export class AuthController {
       throw new HttpException("User wasn't not found", HttpStatus.NOT_FOUND);
     }
     const accessToken = this.jwtService.generateAccessToken(user);
-    this.publisherService.publish('auth-stream', 'AccountAuthenticated', {
-      publicId: user.publicId,
-      accessToken,
-    });
+    const event = {
+      event_name: 'AccountAuthenticated',
+      event_version: 1,
+      data: {
+        publicId: user.publicId,
+        accessToken,
+      },
+    };
+    this.publisherService.publish('auth-stream', event);
     return { accessToken };
   }
 
@@ -63,10 +68,15 @@ export class AuthController {
   async signUp(@Body() body: SignUpDTO) {
     const newUser = await this.accountService.create(body);
     const accessToken = this.jwtService.generateAccessToken(newUser);
-    this.publisherService.publish('auth-stream', 'AccountAuthenticated', {
-      publicId: newUser.publicId,
-      accessToken,
-    });
+    const event = {
+      event_name: 'AccountAuthenticated',
+      event_version: 1,
+      data: {
+        publicId: newUser.publicId,
+        accessToken,
+      },
+    };
+    this.publisherService.publish('auth-stream', event);
     return { accessToken };
   }
 
