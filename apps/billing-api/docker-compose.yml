@@ -1,0 +1,39 @@
+version: '3.5'
+services:
+  database:
+    image: "postgres"
+    env_file:
+      - .env
+    volumes:
+      - tasks-data:/var/lib/postgresql/data/
+    networks:
+      default:
+
+  app:
+    build:
+      context: .
+      dockerfile: dev.dockerfile
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "3001:3001"
+    links:
+      - database
+    networks:
+      - default
+      - messages-net
+
+  cache:
+    image: "redis"
+    networks:
+      default:
+
+volumes:
+  tasks-data:
+
+networks:
+  default:
+
+  messages-net:
+    external: true
+    name: messages-net
