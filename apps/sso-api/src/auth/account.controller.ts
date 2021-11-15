@@ -1,12 +1,26 @@
-import { Controller, Get, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Patch,
+} from '@nestjs/common';
 
 @Controller('account')
 export class AccountController {
-  constructor() {}
-
   @Get('current')
-  getCurrent() {}
+  getCurrent() {
+    throw new HttpException(
+      'Not implemented',
+      HttpStatus.INTERNAL_SERVER_ERROR,
+    );
+  }
 
   @Patch('current')
-  updateCurrent() {}
+  updateCurrent() {
+    throw new HttpException(
+      'Not implemented',
+      HttpStatus.INTERNAL_SERVER_ERROR,
+    );
+  }
 }
