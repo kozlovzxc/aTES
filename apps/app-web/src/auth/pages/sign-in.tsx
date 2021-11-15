@@ -1,23 +1,13 @@
-import { memo, useEffect } from 'react'
-import * as classes from './sign-in.module.css'
+import { memo } from 'react'
 import { useForm } from 'react-hook-form'
-import { signInFx } from '../stores/auth.store'
+import { $auth, signInFx } from '../stores/auth.store'
 import { Link, useNavigate } from 'react-router-dom'
+import { useStore } from 'effector-react'
 
 export const SignIn = memo(() => {
-  const {
-    register,
-    handleSubmit: useSubmit,
-    formState: { errors },
-  } = useForm()
+  const { register, handleSubmit: useSubmit } = useForm()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    // TODO: add errors handling
-    if (Object.keys(errors).length !== 0) {
-      console.error(errors)
-    }
-  }, [errors])
+  const authStore = useStore($auth)
 
   const handleSubmit = useSubmit(async (data) => {
     await signInFx({
@@ -28,30 +18,40 @@ export const SignIn = memo(() => {
   })
 
   return (
-    <div className={classes.container}>
-      <div>
-        <h1 className={classes.title}>Sign in</h1>
-        {/* TODO: handle submit errors */}
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <label className={classes.form__label}>
-            Username
-            <br />
+    <div className="min-vh-100 d-flex justify-content-center align-items-center">
+      <div className="w-25 p-5 bg-primary bg-opacity-10 rounded">
+        <h1 className="mb-3">👋 Sign in</h1>
+        <form className="mb-3" onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Username</label>
             <input
+              className="form-control"
               type="text"
               autoComplete="username"
+              placeholder="username"
+              required
               {...register('username')}
             />
-          </label>
+          </div>
 
-          <label className={classes.form__label}>
-            Password
-            <br />
+          <div className="mb-3">
+            <label className="form-label">Password</label>
             <input
+              className="form-control"
               type="password"
+              placeholder="********"
               autoComplete="current-password"
+              required
               {...register('password')}
             />
-          </label>
+          </div>
+
+          {authStore.error && (
+            <div className="input-group has-validation mb-3">
+              <input hidden className="form-control is-invalid" />
+              <div className="invalid-feedback">{authStore.error}</div>
+            </div>
+          )}
 
           <button type="submit" className="btn btn-primary">
             Sign in

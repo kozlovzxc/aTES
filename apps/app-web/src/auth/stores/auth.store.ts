@@ -1,5 +1,6 @@
 import { createDomain } from 'effector'
 import { request } from '../../common/request'
+import { AxiosError } from 'axios'
 
 const domain = createDomain('auth')
 
@@ -8,7 +9,15 @@ const LOCAL_STORAGE_KEY = 'accessToken'
 /**
  * Store
  */
-export const $auth = domain.createStore({ authenticated: false })
+interface AuthStore {
+  loading: boolean
+  error?: string
+  authenticated: boolean
+}
+export const $auth = domain.createStore<AuthStore>({
+  loading: false,
+  authenticated: false,
+})
 
 /**
  * Effects
@@ -20,10 +29,21 @@ export interface SignInDTO {
 export const signInFx = domain.createEffect((body: SignInDTO) => {
   return request.post('http://localhost:3000/auth/sign-in', body)
 })
-signInFx.done.watch(({ result }) => {
-  localStorage.setItem(LOCAL_STORAGE_KEY, result.data.accessToken)
-})
-$auth.on(signInFx.done, () => ({ authenticated: true }))
+$auth
+  .on(signInFx.pending, (store, pending) => ({ ...store, loading: pending }))
+  .on(signInFx.doneData, (store, response) => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, response.data.accessToken)
+    return { ...store, authenticated: true, error: undefined }
+  })
+  .on(signInFx.failData, (store, error: AxiosError) => {
+    console.log(error)
+    return {
+      ...store,
+      error:
+        error.response.data.message ??
+        'Some error occurred, please try to submit this form again in a few minutes...',
+    }
+  })
 
 export interface SignUpDTO {
   username: string
@@ -32,7 +52,10 @@ export interface SignUpDTO {
 export const signUpFx = domain.createEffect((body: SignUpDTO) => {
   return request.post('http://localhost:3000/auth/sign-up', body)
 })
-signUpFx.done.watch(({ result }) => {
-  localStorage.setItem(LOCAL_STORAGE_KEY, result.data.accessToken)
+$auth.on(signUpFx.doneData, (store, response) => {
+  localStorage.setItem(LOCAL_STORAGE_KEY, response.data.accessToken)
+  return {
+    ...store,
+    authenticated: true,
+  }
 })
-$auth.on(signUpFx.done, () => ({ authenticated: true }))
