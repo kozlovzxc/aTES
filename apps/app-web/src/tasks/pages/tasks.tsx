@@ -1,14 +1,14 @@
-import { memo, useEffect } from "react";
-import { $tasks, tasksFetchFx } from "../stores/tasks";
-import { useStore } from "effector-react";
+import { memo, useEffect } from 'react'
+import { $tasks, tasksFetchFx } from '../stores/tasks'
+import { useStore } from 'effector-react'
 
 export const Tasks = memo(() => {
-  const tasksStore = useStore($tasks);
+  const tasksStore = useStore($tasks)
 
   useEffect(() => {
-    void tasksFetchFx();
-  }, []);
+    void tasksFetchFx()
+  }, [])
 
-  console.log(tasksStore.tasks);
-  return <>Tasks</>;
-});
+  console.log(tasksStore.tasks)
+  return <>Tasks</>
+})

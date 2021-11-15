@@ -1,13 +1,13 @@
 // Dotenv should be imported ASAP
-import * as dotenv from 'dotenv';
-dotenv.config();
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { CommonModule } from './common/common.module';
-import { AuthModule } from './auth/auth.module';
-import { E2EModule } from './e2e/e2e.module';
+import * as dotenv from 'dotenv'
+dotenv.config()
+import { Module } from '@nestjs/common'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { CommonModule } from './common/common.module'
+import { AuthModule } from './auth/auth.module'
+import { E2EModule } from './e2e/e2e.module'
 
 @Module({
   imports: [

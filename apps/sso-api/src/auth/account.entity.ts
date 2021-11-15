@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm'
 
 export enum AccountRole {
   worker = 'worker',
@@ -8,28 +8,28 @@ export enum AccountRole {
 @Entity()
 export class AccountEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column()
   @Index({ unique: true })
-  publicId: string;
+  publicId: string
 
   @Column()
-  username: string;
+  username: string
 
   @Column()
-  password: string;
+  password: string
 
   @Column()
-  role: AccountRole;
+  role: AccountRole
 }
 
-export type PublicAccountEntity = Omit<AccountEntity, 'password'>;
+export type PublicAccountEntity = Omit<AccountEntity, 'password'>
 
 export const getPublicAccountEntity = (
   account: AccountEntity,
 ): PublicAccountEntity => {
-  const publicAccount = { ...account };
-  delete publicAccount.password;
-  return publicAccount;
-};
+  const publicAccount = { ...account }
+  delete publicAccount.password
+  return publicAccount
+}

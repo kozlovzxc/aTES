@@ -1,12 +1,12 @@
-import axios from "axios";
+import axios from 'axios'
 
-export const request = axios;
+export const request = axios
 
-export const authRequest = axios.create();
+export const authRequest = axios.create()
 authRequest.interceptors.request.use((config) => {
-  const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem('accessToken')
   if (token == null) {
-    throw new Error("Access token is undefined");
+    throw new Error('Access token is undefined')
   }
 
   return {
@@ -15,5 +15,5 @@ authRequest.interceptors.request.use((config) => {
       ...config.headers,
       Authorization: `Bearer ${token}`,
     },
-  };
-});
+  }
+})

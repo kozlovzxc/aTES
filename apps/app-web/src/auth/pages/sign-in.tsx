@@ -1,31 +1,31 @@
-import { memo, useEffect } from "react";
-import * as classes from "./sign-in.module.css";
-import { useForm } from "react-hook-form";
-import { signInFx } from "../stores/auth.store";
-import { Link, useNavigate } from "react-router-dom";
+import { memo, useEffect } from 'react'
+import * as classes from './sign-in.module.css'
+import { useForm } from 'react-hook-form'
+import { signInFx } from '../stores/auth.store'
+import { Link, useNavigate } from 'react-router-dom'
 
 export const SignIn = memo(() => {
   const {
     register,
     handleSubmit: useSubmit,
     formState: { errors },
-  } = useForm();
-  const navigate = useNavigate();
+  } = useForm()
+  const navigate = useNavigate()
 
   useEffect(() => {
     // TODO: add errors handling
     if (Object.keys(errors).length !== 0) {
-      console.error(errors);
+      console.error(errors)
     }
-  }, [errors]);
+  }, [errors])
 
   const handleSubmit = useSubmit(async (data) => {
     await signInFx({
       username: data.username,
       password: data.password,
-    });
-    navigate("/");
-  });
+    })
+    navigate('/')
+  })
 
   return (
     <div className={classes.container}>
@@ -39,7 +39,7 @@ export const SignIn = memo(() => {
             <input
               type="text"
               autoComplete="username"
-              {...register("username")}
+              {...register('username')}
             />
           </label>
 
@@ -49,7 +49,7 @@ export const SignIn = memo(() => {
             <input
               type="password"
               autoComplete="current-password"
-              {...register("password")}
+              {...register('password')}
             />
           </label>
 
@@ -62,5 +62,5 @@ export const SignIn = memo(() => {
         </div>
       </div>
     </div>
-  );
-});
+  )
+})

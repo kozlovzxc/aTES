@@ -1,11 +1,11 @@
-import { memo } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { SignIn } from "./auth/pages/sign-in";
-import { SignUp } from "./auth/pages/sign-up";
-import { Layout } from "./layout";
-import { Tasks } from "./tasks/pages/tasks";
-import { AuthGuard } from "./auth/components/auth-guard";
-import { NotAuthGuard } from "./auth/components/not-auth-guard";
+import { memo } from 'react'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { SignIn } from './auth/pages/sign-in'
+import { SignUp } from './auth/pages/sign-up'
+import { Layout } from './layout'
+import { Tasks } from './tasks/pages/tasks'
+import { AuthGuard } from './auth/components/auth-guard'
+import { NotAuthGuard } from './auth/components/not-auth-guard'
 
 export const Router = memo(() => {
   return (
@@ -23,5 +23,5 @@ export const Router = memo(() => {
         </Route>
       </Routes>
     </BrowserRouter>
-  );
-});
+  )
+})

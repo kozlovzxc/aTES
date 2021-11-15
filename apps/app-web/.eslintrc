@@ -1,9 +1,12 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "effector"],
+  "plugins": [
+    "@typescript-eslint",
+    "effector"
+  ],
   "extends": [
-    "eslint:recommended" ,
-    "plugin:@typescript-eslint/recommended",
+    "../../packages/eslint-configs/base.js",
+    "../../packages/eslint-configs/typescript.js",
     "plugin:effector/recommended"
   ],
   "rules": {
