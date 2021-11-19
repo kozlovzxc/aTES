@@ -1,7 +1,0 @@
-{
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "isolatedModules": true
-  },
-  "files": ["src/index.tsx", "src/declaration.d.ts"]
-}
