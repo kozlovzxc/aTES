@@ -12,6 +12,7 @@ django-crispy-forms = "*"
 crispy-bootstrap5 = "*"
 pika = "*"
 jsonschema = "*"
+django-oauth-toolkit = "*"
 
 [dev-packages]
 ipython = "*"
