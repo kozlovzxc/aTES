@@ -1,0 +1,32 @@
+version: '3.5'
+services:
+  database:
+    image: "postgres"
+    env_file:
+      - .env
+    volumes:
+      - sso-data:/var/lib/postgresql/data/
+    networks:
+      - default
+
+#  app:
+#    build:
+#      context: .
+#      dockerfile: dev.dockerfile
+#    ports:
+#      - "3000:3000"
+#    links:
+#      - database
+#    networks:
+#      - default
+#      - messages-net
+
+volumes:
+  sso-data:
+
+networks:
+  default:
+
+  messages-net:
+    external: true
+    name: messages-net

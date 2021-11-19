@@ -1,0 +1,14 @@
+version: '3'
+services:
+  database:
+    ports:
+      - "127.0.0.1:5432:5432"
+
+
+#  app:
+#    build:
+#      context: .
+#      dockerfile: dev.dockerfile
+#    volumes:
+#      - .:/usr/src/aTES/apps/sso-api
+#      - ../schema-registry:/usr/src/aTES/apps/schema-registry

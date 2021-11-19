@@ -1,38 +1,61 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-
   "title": "AccountCreated",
   "description": "Emitted when account is created",
-
   "type": "object",
-  "required": ["publicId", "username", "role"],
-  "definitions": {
+  "required": [
+    "event_id",
+    "event_name",
+    "event_version",
+    "event_data"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string"
+    },
+    "event_name": {
+      "const": "AccountCreated"
+    },
+    "event_version": {
+      "const": 1
+    },
     "event_data": {
-      "public_id": {
-        "$id": "#root/publicId",
-        "title": "PublicId",
-        "type": "string",
-        "examples": ["qYwbvBH0qj7-WOP722Mjm"]
-      },
-      "username": {
-        "$id": "#root/username",
-        "title": "Username",
-        "type": "string",
-        "examples": ["username"]
-      },
-      "role": {
-        "$id": "#root/role",
-        "title": "Role",
-        "type": "string",
-        "enum": ["admin", "worker"],
-        "examples": ["admin"]
+      "type": "object",
+      "required": [
+        "public_id",
+        "username",
+        "role"
+      ],
+      "properties": {
+        "public_id": {
+          "$id": "#root/public_id",
+          "title": "Public id",
+          "type": "string",
+          "examples": [
+            "qYwbvBH0qj7-WOP722Mjm"
+          ]
+        },
+        "username": {
+          "$id": "#root/username",
+          "title": "Username",
+          "type": "string",
+          "examples": [
+            "username"
+          ]
+        },
+        "role": {
+          "$id": "#root/role",
+          "title": "Role",
+          "type": "string",
+          "enum": [
+            "admin",
+            "worker"
+          ],
+          "examples": [
+            "admin"
+          ]
+        }
       }
     }
-  },
-  "properties": {
-    "event_id": { "type": "string" },
-    "event_name": { "const": "AccountCreated" },
-    "event_version": { "const": 1 },
-    "data": { "$ref": "#/definitions/event_data" }
   }
 }
